@@ -79,8 +79,6 @@ Edit
 GEMINI_API_KEY = "your_google_gemini_api_key_here"
 Click Deploy and get your live app URL! 🚀
 
-📜 License
-This project is licensed under the MIT License.
 
 🤝 Contribution
 Want to contribute? 🚀
