@@ -1,0 +1,5 @@
+The Python code uses the `NUMEXT` module instead of the NumPy module, which is imported as `np`. To fix this, replace `NUMEXT` with `numpy`. Also, the code doesn't actually print the generated random number, so add `print()` before `np.random.randint`. Here's the corrected code:
+
+import numpy as np
+
+print(np.random.randint(1, 10))
