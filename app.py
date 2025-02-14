@@ -5,17 +5,17 @@ import json
 import time
 from dotenv import load_dotenv
 
-# Load API key from .env file
+
 load_dotenv()
 API_KEY = os.getenv("GEMINI_API_KEY")
 
-# Configure Gemini API
+
 genai.configure(api_key=API_KEY)
 
-# Streamlit UI Configuration
+
 st.set_page_config(page_title="AI Code Reviewer", layout="wide")
 
-# Custom CSS for Center Alignment & Styling
+
 st.markdown(
     """
     <style>
@@ -85,39 +85,39 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Custom Header
+
 st.markdown("<h1>🤖 Aapka AI Code Reviewer Dost</h1>", unsafe_allow_html=True)
 st.write("<h3>💡 Paste your Python code below and get AI-powered feedback on Bugs, Optimizations, and Best Practices.</h3>", unsafe_allow_html=True)
 
-# Center-align Content
+
 st.markdown("<div class='main'>", unsafe_allow_html=True)
 
-# Smaller Code Input Box (Centered)
-user_code = st.text_area("📝 Enter Your Python Code Here:", height=100, key="code_input")  # Reduced height
 
-# History of previous submissions
+user_code = st.text_area("📝 Enter Your Python Code Here:", height=100, key="code_input")  
+
+
 if "history" not in st.session_state:
     st.session_state.history = []
 
-# Dark Mode Toggle
+
 dark_mode = st.checkbox("🌙 Dark Mode", value=False)
 
-# Process Code Review
+
 if st.button("🔎 Review Code"):
     if user_code.strip():
         with st.spinner("🔄 Analyzing your code with AI..."):
             try:
-                model = genai.GenerativeModel("gemini-pro")  # Free-tier model
+                model = genai.GenerativeModel("gemini-pro")  
                 response = model.generate_content(f"Review this Python code and identify issues:\n{user_code}")
 
-                # Store history
+                
                 st.session_state.history.append({"code": user_code, "review": response.text})
 
-                # Display AI response in collapsible sections
+                
                 st.subheader("📌 AI Code Review Summary")
                 st.markdown(f"<div class='report-text'>{response.text}</div>", unsafe_allow_html=True)
 
-                # Add option to download report
+                
                 report_filename = "AI_Code_Review.txt"
                 with open(report_filename, "w") as f:
                     f.write(response.text)
@@ -128,7 +128,7 @@ if st.button("🔎 Review Code"):
     else:
         st.warning("⚠️ Please enter some Python code before submitting.")
 
-# Show History
+
 st.subheader("📜 Review History")
 if st.session_state.history:
     for idx, entry in enumerate(reversed(st.session_state.history)):
@@ -136,7 +136,7 @@ if st.session_state.history:
             st.code(entry["code"], language="python")
             st.text_area("💡 AI Review:", entry["review"], height=150)
 
-# Live AI Analysis (Real-time Feedback)
+
 if user_code.strip():
     with st.spinner("⚡ Live AI Analysis in progress..."):
         time.sleep(1)
